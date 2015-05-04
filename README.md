@@ -1,18 +1,64 @@
 # EONTeam3
-A <- read.table("x.data", sep=",",
-                col.names=c("year", "my1", "my2"))
-nrow(A)                                 # Count the rows in A
+custData <- read.csv(file.choose(), header=T)
+dataRange <- sample(1:nrow(custData),size=0.3*nrow(custData))
+validationData <- custData[dataRange,]
+devData <-  custData[-dataRange,]
+fullLogModel <- glm(devData$ynChurn ~ devData$DOEID+devData$REGIONC+devData$TYPEHUQ+devData$UR+devData$KOWNRENT+devData$No_of_People+devData$Age_Account_Holder+devData$Income+devData$Occu_Acc_Holder+devData$HDD65+devData$CDD65+devData$KWH+devData$BTUEL+devData$DOLLAREL_Electricity+devData$DOLLAREL_BTUEL+devData$PERIODEL+devData$SCALEEL+devData$Cons_Billing_Last_Month+devData$Cons_Billing_Last_2nd_Month+devData$Tariff_Type+devData$Switched_Providers+devData$Price_per_KWH+devData$Price_per_BTU+devData$Last_Prev_Bill_Ratio+devData$Service_Satisfaction+devData$Previous_bill_see+devData$Request_Contact, family=binomial())
+summary(fullLogModel)
+custData <- read.csv(file.choose(), header=T)
+dataRange <- sample(1:nrow(custData),size=0.3*nrow(custData))
+validationData <- custData[dataRange,]
+devData <-  custData[-dataRange,]
+View(devData)
+devData$ynChurn[devData$Churn_Flag >0] <-1
+devData$ynChurn[devData$Churn_Flag == 0] <-0
+devData$ynChurn <- factor(devData$ynChurn, levels(0,1), labels=c("No","Yes"))
+devData$ynChurn <- factor(devData$ynChurn, levels=c(0,1), labels=c("No","Yes"))
+table(devData$ynChurn)
+fullLogModel <- glm(devData$ynChurn ~ devData$DOEID+devData$REGIONC+devData$TYPEHUQ+devData$UR+devData$KOWNRENT+devData$No_of_People+devData$Age_Account_Holder+devData$Income+devData$Occu_Acc_Holder+devData$HDD65+devData$CDD65+devData$KWH+devData$BTUEL+devData$DOLLAREL_Electricity+devData$DOLLAREL_BTUEL+devData$PERIODEL+devData$SCALEEL+devData$Cons_Billing_Last_Month+devData$Cons_Billing_Last_2nd_Month+devData$Tariff_Type+devData$Switched_Providers+devData$Price_per_KWH+devData$Price_per_BTU+devData$Last_Prev_Bill_Ratio+devData$Service_Satisfaction+devData$Previous_bill_see+devData$Request_Contact, family=binomial())
+summary(fullLogModel)
 
-summary(A$year)                         # The column "year" in data frame A
-                                        # is accessed as A$year
-
-A$newcol <- A$my1 + A$my2               # Makes a new column in A
-newvar <- A$my1 - A$my2                 # Makes a new R object "newvar"
-A$my1 <- NULL                           # Removes the column "my1"
-
-# You might find these useful, to "look around" a dataset --
-str(A)
-summary(A)
-library(Hmisc)          # This requires that you've installed the Hmisc package
-contents(A)
-describe(A)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction, family=binomial())
+summary(fullLogModel)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Income, family=binomial())
+sunnary(fullLogModel)
+summary(fullLogModel)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder, family=binomial())
+summary(fullLogModel)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT, family=binomial())
+summary(fullLogModel)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT+devData$REGIONC, family=binomial())
+summary(fullLogModel)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT+devData$REGIONC+devData$TYPEHUQ, family=binomial())
+summary(fullLogModel)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT+devData$REGIONC, family=binomial())
+summary(fullLogModel)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT, family=binomial())
+summary(fullLogModel)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT+devData$HDD65, family=binomial())
+summary(fullLogModel)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT+devData$CDD65, family=binomial())
+summary(fullLogModel)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT, family=binomial())
+summary(fullLogModel)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT+devData$Occu_Acc_Holder, family=binomial())
+summary(fullLogModel)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT+devData$Occu_Acc_Holder+devData$TYPEHUQ, family=binomial())
+summary(fullLogModel)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT+devData$Occu_Acc_Holder+devData$TYPEHUQ+devData$Tariff_Type, family=binomial())
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT+devData$Occu_Acc_Holder+devData$Request_Contact, family=binomial())
+summary(fullLogModel)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT+devData$Occu_Acc_Holder+devData$Request_Contact+devData$Previous_bill_see, family=binomial())
+summary(fullLogModel)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT+devData$Occu_Acc_Holder+devData$Request_Contact+devData$Previous_bill_see+devData$Switched_Providers, family=binomial())
+summary(fullLogModel)
+devData$Switched_Providers <- factor(devData$Switched_Providers,levels=c(0,1),labels=c("No","Yes"))
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT+devData$Occu_Acc_Holder+devData$Request_Contact+devData$Previous_bill_see+devData$Switched_Providers, family=binomial())
+summary(fullLogModel)
+table(devData$Switched_Providers)
+fullLogModel <- glm(devData$ynChurn ~ devData$Service_Satisfaction+devData$Occu_Acc_Holder+devData$Income+devData$KOWNRENT+devData$Occu_Acc_Holder+devData$Request_Contact+devData$Previous_bill_see+devData$Cons_Billing_Last_Month, family=binomial())
+summary(fullLogModel)
+par(mfrow=c(2,2))
+fit <- lm(devData$Churn_Flag~devData$REGIONC+devData$TYPEHUQ+devData$UR+devData$UR+devData$KOWNRENT+devData$No_of_People+devData$Age_Account_Holder+devData$Income+devData$HDD65+devData$CDD65+devData$KWH+devData$Service_Satisfaction+devData$Last_Prev_Bill_Ratio)
+plot(fit)
+predict(redLogModel,validationData,type="response")
